@@ -19,6 +19,7 @@ class Admin::CatageroysController < Admin::BaseController
 
   # GET /catageroys/1/edit
   def edit
+    
   end
 
   # POST /catageroys or /catageroys.json
