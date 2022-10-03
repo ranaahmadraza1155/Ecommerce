@@ -32,8 +32,6 @@ class Admin::ProductsController < Admin::BaseController
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
-
-    
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to admin_catageroys_path, notice: "Product was successfully updated." }
