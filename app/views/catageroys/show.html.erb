@@ -1,0 +1,108 @@
+<!-- <-- Header-->
+
+
+<div style="display:flex; justify-content:space-between;background-color:black">
+  <div>
+    <p style="color: green"><%= notice %></p>
+    <a href="/catageroys" style="text-decoration: none;color:white">
+      <h1>MastShop</h1>
+    </a>
+    <p style="margin-top:-15px;margin-left:10px; font-size:14px;color:pink">Comfortable Life Style</p>
+  </div>
+
+
+  <div style="margin-top:20px;">
+    
+      <a href="/catageroys/<%= @catageroy.id%>" style="text-decoration: none;color:gray; ">
+        <h3 style="color:white; font-family:arial"><%= @catageroy.name%></h3>
+      </a>
+    
+  </div>
+
+  <div style="margin:20px;">
+    <a href="/carts" style="color:white; font-size:15px">
+    <div class="position-relative d-flex justify-content-center align-items-start">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="30" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+      </svg>
+      <div class="position-absolute bottom-0 mb-1">
+      <%= Cart.count%>
+      </div>
+    </div>
+    </a>
+  </div>
+
+</div>
+
+<%# <%= render @catageroy %>
+
+
+
+
+<div>
+   <%=form_with model:@catageroy do |s|%>
+     <%= %>
+   <%end%>>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- <-- show Catageroy product-->
+
+<div style="display:flex; flex-wrap:wrap; justify-content:center; ">
+
+  <% @catageroy.products.each do |prod|%>
+  <a href="/products/<%= prod.id%>" style="text-decoration: none;">
+    <div
+      style="display:flex; flex-direction:column; width:300px; height:300px; margin:30px; border-radius: 10px;background-color: white;">
+
+
+      <!-- <-- show Catageroy product Image-->
+
+
+      <div >
+        <%= image_tag prod.f_image, height:'240px', width:'300px' ,border_radius:'25px' if prod.f_image.attached?%>
+      </div>
+
+
+      <!-- <-- show Catageroy product Title-->
+
+
+
+      <div style="display:flex;justify-content:center;height:25px; overflow: hidden; ">
+        <b style="color:rgb(85, 77, 77); font-family: 'Times New Roman', Times, serif;"><%= prod.title %></b>
+      </div>
+
+
+      <!-- <-- show Catageroy product Price & Cart-->
+
+
+      <div style="height:25px; display:flex; margin-left:5px; flex-direction:row; justify-content:space-between;">
+        <p style="margin-top:15px;margin-left:10px;"><b>Price</b> <%= prod.price%></p>
+        <div><%= link_to "Add to Cart", addcart_path(prod.id), class:"btn btn-primary py-1", style:"border-radius:0 0 10px 0" %></div>
+
+      </div>
+    </div>
+  </a>
+  <%end%>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

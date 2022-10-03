@@ -1,0 +1,16 @@
+
+<div style="display:flex; justify-content:space-between; background-color:black">
+   <div>
+     <p style="color: green"><%= notice %></p>
+      <a href="/catageroys" style="text-decoration: none;color:white"><h1>MastShop</h1></a>
+      <p style="margin-top:-12px;margin-left:10px; font-size:14px;color:pink">Comfortable Life Style</p>
+   </div>
+   <div style="margin-right:40px">
+      <%= button_to "Remove Product", @product, method: :delete %>
+      <%= link_to "Back", catageroy_path(@product.Catageroy_id)%> <b style="color:yellow"> |</b>
+      <%= link_to "Edit Product", edit_product_path(@product) %>
+   </div>
+</div>
+<hr>
+
+<%= render @product %>

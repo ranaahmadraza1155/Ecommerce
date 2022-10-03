@@ -1,0 +1,18 @@
+<h1>New catageroy</h1>
+
+<%= render "form", catageroy: @catageroy, url: admin_catageroys_path %>
+
+<br>
+
+<div>
+  <%= link_to "Back to catageroys", admin_catageroys_path %>
+  <div>
+    <% @cat = Catageroy.all%>
+    <% @cat.each do |cl|%>
+      <div style="border:2px solid; border-radius:10px; width:300px; display:flex;justify-content:space-around">
+      <a href="/admin/catageroys/<%= cl.id%>/edit"><%= cl.name %> </a>
+      <%= link_to 'delete', admin_catageroy_path(cl.id), data: { turbo_method: :delete } %>
+      </div>
+    <%end%>
+  </div>
+</div>

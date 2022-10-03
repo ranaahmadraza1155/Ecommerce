@@ -1,0 +1,30 @@
+<div id="<%= dom_id product %>">
+ <div style="display:flex; justify-content:space-around">
+      <div style="width:50%; height:500px;border:1px solid">
+          <p style="border:1px solid"><%= image_tag product.f_image,height:'500px', width:'100%' %></p>
+      </div>
+
+      <div style="width:40%">
+            <br><br>
+            <h3 style="font-family:calibari">
+              <%= product.title %>
+            </h3>
+         <div style="margin-top:-10px; display:flex;">
+            <p style="color:gray;font-family:calibari">Price <%= product.price %></p>
+            <p style="color:gray;margin-left:30px;font-family:calibari">
+             Stock <%= product.qty %>
+            </p>
+        </div>
+
+
+        <br><br><br>
+       <%= link_to 'Add Cart', addcart_path(product.id), class:"btn btn-primary "%>
+          <br><br><br>
+        <p>
+          <h2 style="font-family:Arial">Description </h2>
+          <p style="font-family:callibari"><%= product.des %></p>
+        </p>
+     </div>
+
+  </div>
+</div>

@@ -1,0 +1,124 @@
+<style media="screen">
+  table,
+  td {
+    padding: 10px 0px;
+  }
+</style>
+
+
+
+
+<div style="display:flex;justify-content:space-between; background-color:black">
+     <div>
+          <a href="/catageroys" style="text-decoration: none;color:white">
+          <h1 style="color:white">MastShop</h1>
+          <p style="margin-top:-15px;margin-left:10px; font-size:14px;color:pink">Comfortable Life Style</p>
+          </a>
+     </div>
+
+
+     <div>
+          <a href="/carts" style="color:white; font-size:15px;margin-right:50px;">
+          <div class="position-relative d-flex justify-content-center align-items-start">
+               <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="30" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+               </svg>
+               <div class="position-absolute bottom-0 mb-1">
+               <%= Cart.count%>
+               </div>
+          </div>
+          </a>
+          
+      </div>
+
+     </div>
+
+
+ <br><br>
+ <% $price=0%>
+ <% $qty=0%>
+</div>
+
+
+
+
+<div style="display:flex;justify-content:space-around">
+  <div class="" style="width:50%;">
+    <table  width="100%" style="border-radius: 10px; width:100%; background-color: aliceblue">
+      <tr>
+        <td><b>Image</td>
+        <td><b>Title</td>
+        <td><b>Price</td>
+        <td><b>Quantity</td>
+        <td><b>Action</td>
+      </tr>
+      <% @cart.each do |c|%>
+      <tr style="padding-top:20px;border-top: 2px solid;">
+
+        <td><% @products = Product.find(c.pid)%> <%= image_tag @products.f_image, width:'80px', height:'80px' %></td>
+        <td style="overflow:hidden; border-right:0px solid;"><%= c.title%></td>
+        <td style="border-right:0px solid"><%=c.price%></td>
+        <td>
+          <div style="display:flex; justify-content:space-around; align-items: center;margin-top:20px">
+            <p> <%= link_to "-",sub_path(c.id), style:"font-weight:bold; font-size:35px; text-decoration: none;" %></p>
+            <p style="margin-top:10px"><%= c.quantity%></p>
+            <p><%= link_to "+", edit_cart_path(c.id) , style:"font-weight:bold; font-size:35px; text-decoration: none;" %></p>
+          </div>
+        </td>
+        <td><%= link_to "Delete", cart_path(c),  data: {
+                          turbo_method: :delete,
+                          turbo_confirm: "Are you sure?"
+                            }  %></td>
+      </tr>
+      <% $price += c.quantity * c.price%>
+      <% $qty   +=  c.quantity %>
+      <% $user = c.id %>
+      <% end %>
+    </table>
+  </div>
+
+
+
+    <div style="width:30%; height:500px;">
+      
+        <div style="margin-bottom: 20px; border-radius: 10px;padding:10px;background-color: aliceblue">
+          <h5>Billing Information </h5>
+          <table width="100%" style="margin-bottom: 20px;">
+            <tr>
+              <td>Total Items</td>
+              <td><%= $qty%></td>
+            </tr>
+            <tr>
+              <td>Total Amount</td>
+              <td><%= $price%></td>
+            </tr>
+            <tr>
+              <td>Total Items</td>
+              <td>5</td>
+            </tr>
+          </table>
+        </div>
+
+        <div style="margin-bottom: 20px; border-radius: 10px;padding:10px;background-color: aliceblue;">
+          <h5>Custumer Details</h5>
+          <table width="100%">
+            <tr>
+              <td>Name</td>
+              <td><%= $qty%></td>
+            </tr>
+            <tr>
+              <td>Contact Number</td>
+              <td><%= $price%></td>
+            </tr>
+            <tr>
+              <td>Adress</td>
+              <td>5</td>
+            </tr>
+          </table>
+        </div>
+ 
+        <div style="display:flex; justify-content:flex-end;margin-right:30px; margin-top:20px">
+          <%= link_to "Confirm Order", cart_path($user), class:"btn btn-primary" %>
+        </div>
+    </div>
+</div>

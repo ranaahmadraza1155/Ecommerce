@@ -1,0 +1,197 @@
+
+  <style>
+    tr {
+      border: 2px solid;
+    }
+
+    table,
+    tr,
+    td {
+      padding-right: 20px !important;
+    }
+  </style>
+
+
+
+  <div style="display:flex;justify-content:space-between; background-color:black">
+    <div>
+      <a href="/admin/catageroys" style="text-decoration: none;color:white">
+        <h1 style="color:white">MastShop</h1>
+        <p style="margin-top:-15px;margin-left:10px; font-size:14px;color:pink">Comfortable Life Style</p>
+      </a>
+    </div>
+
+
+
+    <!-- # <div id="catageroys" style="display:flex; flex-direction:row; ">
+          #      <% @catageroys.each do |catageroy| %>
+          #           <%#= render catageroy %>
+          #      <% end %>
+          # </div> -->
+
+    <div>
+      <div style="display:flex">
+
+
+        <div>
+          <% if current_user%>
+          <%= current_user.email %><br>
+          <%= link_to "Edit", edit_user_registration_path() %> |
+          <%= link_to "LogOut", destroy_user_session_path, data: { turbo_method: :delete } %>
+
+          <%else%>
+          <%= link_to "LogIn", new_user_session_path() %> |
+          <%= link_to "Signup", new_user_registration_path() %>
+          <%end%>
+        </div>
+        <a href="/carts" style="color:white; font-size:15px;margin-right:50px;margin-left:50px">
+          <div class="position-relative d-flex justify-content-center align-items-start">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="30" height="40" viewBox="0 0 24 24"
+              stroke-width="1.5" stroke="white" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+            </svg>
+            <div class="position-absolute bottom-0 mb-1">
+              <%= Cart.count%>
+            </div>
+          </div>
+          <!-- <a href="/catageroys/new/" style="text-decoration: none;margin-right:20px; color:gray">
+            <h7> <b>+</b> Catageroy</h7>
+          </a> -->
+        </a>
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+
+  <div>
+    <div>
+      <a href="/admin/catageroys/new">Add New Catagaries</a>
+    </div>
+    <div>
+       <%= link_to "New product", new_admin_product_path %>
+    </div>
+  </div>
+
+  <br><br><br>
+
+
+
+
+
+
+
+  <div style="display:flex; justify-content: space-around">
+      <div>
+          <table>
+            <tr>
+              <td><b>Image</td>
+              <td><b>Title</td>
+              <td><b>Quantity</td>
+              <td><b>Price</td>
+              <td><b>Catagaries</td>
+              <td><b>Action</td>
+            </tr>
+            <% @product.each do |prod|%>
+            <% @cat = Catageroy.find(prod.Catageroy_id)%>
+            <tr>
+              <td><%= image_tag prod.f_image, width:"70px", height:"70px"%></td>
+              <td><%= prod.title%></td>
+              <td><%= prod.qty%></td>
+              <td><%= prod.price%></td>
+              <td><%= @cat.name %></td>
+              <td>  <%= link_to 'Edit', edit_admin_product_path(prod.id)%><br><%= link_to 'delete', admin_product_path(prod.id), data: { turbo_method: :delete } %> </td>
+            </tr>
+            <%end%>
+          </table>
+      </div>
+
+
+      <div>
+          <table>
+          <tr>
+            <td><b>Image</td>
+            <td><b>Usere</td>
+            <td><b>Quantity</td>
+            <td><b>Price</td>
+            <td><b>Catagaries</td>
+            <td><b>Action</td>
+          </tr>
+          <% @order.each do |prod|%>
+          <% @product = Product.find(prod.pid)%>
+          <tr>
+            <td><%= image_tag @product.f_image, width:"70px", height:"70px" if @product.f_image.attached?%></td>
+            <td><%= prod.user%></td>
+            <td><%= prod.quantity%></td>
+            <td><%= prod.price%></td>
+            <td><%= prod.id %></td>
+            <td> <%= link_to 'delete', cart_path(prod.id), data: { turbo_method: :delete } %> </td>
+          </tr>
+          <%end%>
+        </table>
+
+      </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%
+=begin
+%>
+
+<div style="display:flex; flex-wrap:wrap; justify-content:center;">
+  <% @product.each do |prod|%>
+  <a href="/products/<%= prod.id%>" style="text-decoration: none;">
+    <div
+      style="display:flex; flex-direction:column; width:300px; height:300px; background-color:white; margin:30px; border-radius: 10px;  ">
+      <div class="">
+        <%= image_tag prod.f_image, height:'240px', width:'300px' ,border_radius:'25px' if prod.f_image.attached?%>
+      </div>
+
+      <div style="display:flex;justify-content:center;height:25px; overflow: hidden; ">
+        <b style="color:rgb(85, 77, 77); font-family: 'Times New Roman', Times, serif;"><%= prod.title %></b>
+      </div>
+
+
+      <!-- <-- show Catageroy product Price & Cart-->
+
+
+      <div style="height:25px; display:flex; margin-left:5px; flex-direction:row; justify-content:space-between;">
+        <p style="margin-top:15px;margin-left:10px;"><b>Price</b> <%= prod.price%></p>
+        <div>
+          <%= link_to "Add to Cart", addcart_path(prod.id), class:"btn btn-primary py-1", style:"border-radius:0 0 10px 0" %>
+        </div>
+
+      </div>
+    </div>
+  </a>
+  <%end%>
+</div>
+
+
+<%
+=end
+%>
